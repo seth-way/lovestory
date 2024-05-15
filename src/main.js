@@ -1,6 +1,55 @@
+var {
+  covers,
+  titles,
+  descriptors
+} = require('./data')
+
+/*-------------------------------------FUNCTIONS----------------------------------*/
+
+function getRandomIndex(array) {
+  return Math.floor(Math.random() * array.length);
+}
+
+function createCover(imgSrc, title, descriptor1, descriptor2) {
+  var cover = {
+    id: Date.now(),
+    coverImg: imgSrc,
+    title: title,
+    tagline1: descriptor1,
+    tagline2: descriptor2
+  }
+  return cover
+}
+
+function getRandomMember(array2) {
+  var index = getRandomIndex(array2)
+  return array2[index]
+}
+
+function createRandomCover() {
+  var randomSrc = getRandomMember(covers)
+  var randomTitle = getRandomMember(titles)
+  var randomDescriptor1 = getRandomMember(descriptors)
+  var randomDescriptor2 = getRandomMember(descriptors)
+  var randomCover = createCover(randomSrc, randomTitle, randomDescriptor1, randomDescriptor2)
+  return randomCover
+}
+
+console.log(createRandomCover())
+
+/*-------------------------------------DOM VARIABLES----------------------------------*/
+
+
+
+/*-------------------------------------EVENT LISTENERS----------------------------------*/
+
+
+
+
 // Create variables targetting the relevant DOM elements here 👇
 
-var randomCoverPhoto = document.querySelector('.random-cover-button');
+// var newCoverPhoto = document.querySelector('.cover-image');
+// newCoverPhoto.src = './assets/glorious.jpg'
 
 // Test comment 
 
@@ -17,21 +66,25 @@ var currentCover;
 
 
 // We've provided two functions to get you started
-function getRandomIndex(array) {
-  return Math.floor(Math.random() * array.length);
-}
+// function getRandomIndex(array) {
+//   return Math.floor(Math.random() * array.length);
+// }
 
-function createCover(imgSrc, title, descriptor1, descriptor2) {
-  var cover = {
-    id: Date.now(),
-    coverImg: imgSrc,
-    title: title,
-    tagline1: descriptor1,
-    tagline2: descriptor2
-  }
-  return cover
-}
+// function createCover(imgSrc, title, descriptor1, descriptor2) {
+//   var cover = {
+//     id: Date.now(),
+//     coverImg: imgSrc,
+//     title: title,
+//     tagline1: descriptor1,
+//     tagline2: descriptor2
+//   }
+//   return cover
+// }
 
-function randomCoverImg() {
 
-}
+
+
+// we need to select a random picture from the covers array in data.js
+// we need to select a random title from the titles array in data.js
+// we need to select a random tagline from the descriptors in the data.js
+// we need to select a random tagline from the descriptors in the data.js
