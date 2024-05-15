@@ -1,5 +1,8 @@
 // Create variables targetting the relevant DOM elements here 👇
 
+var randomCoverPhoto = document.querySelector('.random-cover-button');
+
+// Test comment 
 
 // We've provided a few variables below
 var savedCovers = [
@@ -27,4 +30,8 @@ function createCover(imgSrc, title, descriptor1, descriptor2) {
     tagline2: descriptor2
   }
   return cover
+}
+
+function randomCoverImg() {
+
 }
