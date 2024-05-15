@@ -1,8 +1,4 @@
-var {
-  covers,
-  titles,
-  descriptors
-} = require('./data')
+
 
 /*-------------------------------------FUNCTIONS----------------------------------*/
 
@@ -35,12 +31,26 @@ function createRandomCover() {
   return randomCover
 }
 
-console.log(createRandomCover())
+
+
 
 /*-------------------------------------DOM VARIABLES----------------------------------*/
 
+function updateMainCover(imgSrc, title, descriptor1, descriptor2) {
+  var newCoverPhoto = document.querySelector('.cover-image');
+  newCoverPhoto.src = imgSrc;
+  var newCoverTitle = document.querySelector('.cover-title')
+  newCoverTitle.innerText = title
+  var newDescriptor1 = document.querySelector('.tagline-1')
+  newDescriptor1.innerText = descriptor1
+  var newDescriptor2 = document.querySelector('.tagline-2')
+  newDescriptor2.innerText = descriptor2
 
+}
 
+var randomCover = createRandomCover()
+updateMainCover(randomCover.coverImg, randomCover.title, randomCover.tagline1, randomCover.tagline2)
+console.log(randomCover)
 /*-------------------------------------EVENT LISTENERS----------------------------------*/
 
 
