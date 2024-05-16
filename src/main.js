@@ -48,9 +48,18 @@ function updateMainCover(imgSrc, title, descriptor1, descriptor2) {
 
 }
 
+function showRandomCover() {
 var randomCover = createRandomCover()
 updateMainCover(randomCover.coverImg, randomCover.title, randomCover.tagline1, randomCover.tagline2)
 console.log(randomCover)
+  
+}
+
+showRandomCover()
+
+var randomCoverBtn = document.querySelector('.random-cover-button');
+
+randomCoverBtn.addEventListener('click', showRandomCover)
 /*-------------------------------------EVENT LISTENERS----------------------------------*/
 
 
