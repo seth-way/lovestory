@@ -57,9 +57,24 @@ console.log(randomCover)
 
 showRandomCover()
 
+// For the Make Your Own Cover Button
+function changeToFormView() {
+  homeView.classList.add('hidden')
+  savedView.classList.add('hidden')
+  formView.classList.remove('hidden')
+}
+
+var homeView = document.querySelector('.home-view')
+var savedView = document.querySelector('.saved-view')
+var formView = document.querySelector('.form-view')
+
 var randomCoverBtn = document.querySelector('.random-cover-button');
 
 randomCoverBtn.addEventListener('click', showRandomCover)
+
+var makeOwnCoverBtn = document.querySelector('.make-new-button')
+
+makeOwnCoverBtn.addEventListener('click', changeToFormView)
 /*-------------------------------------EVENT LISTENERS----------------------------------*/
 
 
