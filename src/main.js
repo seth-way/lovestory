@@ -1,5 +1,28 @@
 
 
+var savedCovers = [
+  createCover("http://3.bp.blogspot.com/-iE4p9grvfpQ/VSfZT0vH2UI/AAAAAAAANq8/wwQZssi-V5g/s1600/Do%2BNot%2BForsake%2BMe%2B-%2BImage.jpg", "Sunsets and Sorrows", "sunsets", "sorrows")
+];
+var currentCover;
+
+/*-------------------------------------DOM VARIABLES----------------------------------*/
+// ----------- VIEWS --------------
+var homeView = document.querySelector('.home-view')
+var savedView = document.querySelector('.saved-view')
+var formView = document.querySelector('.form-view')
+// ----------- BUTTONS -------------
+var randomCoverBtn = document.querySelector('.random-cover-button');
+
+var saveCoverBtn = document.querySelector('.save-cover-button')
+
+var makeOwnCoverBtn = document.querySelector('.make-new-button')
+
+var homeBtn = document.querySelector('.home-button')
+
+var viewSavedBtn= document.querySelector('.view-saved-button')
+
+
+
 /*-------------------------------------FUNCTIONS----------------------------------*/
 
 function getRandomIndex(array) {
@@ -32,10 +55,6 @@ function createRandomCover() {
 }
 
 
-
-
-/*-------------------------------------DOM VARIABLES----------------------------------*/
-
 function updateMainCover(imgSrc, title, descriptor1, descriptor2) {
   var newCoverPhoto = document.querySelector('.cover-image');
   newCoverPhoto.src = imgSrc;
@@ -57,25 +76,44 @@ console.log(randomCover)
 
 showRandomCover()
 
-// For the Make Your Own Cover Button
+
 function changeToFormView() {
   homeView.classList.add('hidden')
   savedView.classList.add('hidden')
   formView.classList.remove('hidden')
+  randomCoverBtn.classList.add('hidden')
+  saveCoverBtn.classList.add('hidden')
+  homeBtn.classList.remove('hidden')
 }
 
-var homeView = document.querySelector('.home-view')
-var savedView = document.querySelector('.saved-view')
-var formView = document.querySelector('.form-view')
+function changedSavedView() {
+  homeView.classList.add('hidden')
+  savedView.classList.remove('hidden')
+  formView.classList.add('hidden')
+  saveCoverBtn.classList.add('hidden')
+  randomCoverBtn.classList.add('hidden')
+  homeBtn.classList.remove('hidden')
+}
 
-var randomCoverBtn = document.querySelector('.random-cover-button');
+function changedToHomeView() {
+  homeView.classList.remove('hidden')
+  savedView.classList.add('hidden')
+  formView.classList.add('hidden')
+  homeBtn.classList.add('hidden')
+  saveCoverBtn.classList.remove('hidden')
+  randomCoverBtn.classList.remove('hidden')
+}
+
+
+/*-------------------------------------EVENT LISTENERS----------------------------------*/
 
 randomCoverBtn.addEventListener('click', showRandomCover)
 
-var makeOwnCoverBtn = document.querySelector('.make-new-button')
-
 makeOwnCoverBtn.addEventListener('click', changeToFormView)
-/*-------------------------------------EVENT LISTENERS----------------------------------*/
+
+viewSavedBtn.addEventListener('click', changedSavedView)
+
+homeBtn.addEventListener('click', changedToHomeView)
 
 
 
@@ -88,10 +126,7 @@ makeOwnCoverBtn.addEventListener('click', changeToFormView)
 // Test comment 
 
 // We've provided a few variables below
-var savedCovers = [
-  createCover("http://3.bp.blogspot.com/-iE4p9grvfpQ/VSfZT0vH2UI/AAAAAAAANq8/wwQZssi-V5g/s1600/Do%2BNot%2BForsake%2BMe%2B-%2BImage.jpg", "Sunsets and Sorrows", "sunsets", "sorrows")
-];
-var currentCover;
+
 
 // Add your event listeners here 👇
 
