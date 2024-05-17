@@ -19,17 +19,34 @@ var makeOwnCoverBtn = document.querySelector('.make-new-button')
 
 var homeBtn = document.querySelector('.home-button')
 
-var viewSavedBtn= document.querySelector('.view-saved-button')
+var viewSavedBtn = document.querySelector('.view-saved-button')
 
+var createBookBtn = document.querySelector('.create-new-book-button')// New
 
-
+// -------------- INPUT -----------
+var coverInput = document.querySelector('.user-cover')
+var titleInput = document.querySelector('.user-title')//New
+var descOneInput = document.querySelector('.user-desc1')
+var descTwoInput = document.querySelector('.user-desc2')
+// -------------- MAIN PHOTO -----------
+var newCoverPhoto = document.querySelector('.cover-image')
+var newCoverTitle = document.querySelector('.cover-title')
+var newDescriptor1 = document.querySelector('.tagline-1')
+var newDescriptor2 = document.querySelector('.tagline-2')
+// -------------- OTHER -----------
+// var body = document.querySelector('body');
 /*-------------------------------------FUNCTIONS----------------------------------*/
 
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
 }
-
+//takes 4 arguments, makes a cover
 function createCover(imgSrc, title, descriptor1, descriptor2) {
+  if (!imgSrc) { imgSrc = getRandomMember(covers); }
+  if (!title) { title = getRandomMember(titles); }
+  if (!descriptor1) { descriptor1 = getRandomMember(descriptors); }
+  if (!descriptor2) { descriptor2 = getRandomMember(descriptors); }
+
   var cover = {
     id: Date.now(),
     coverImg: imgSrc,
@@ -45,37 +62,28 @@ function getRandomMember(array2) {
   return array2[index]
 }
 
-function createRandomCover() {
-  var randomSrc = getRandomMember(covers)
-  var randomTitle = getRandomMember(titles)
-  var randomDescriptor1 = getRandomMember(descriptors)
-  var randomDescriptor2 = getRandomMember(descriptors)
-  var randomCover = createCover(randomSrc, randomTitle, randomDescriptor1, randomDescriptor2)
-  return randomCover
-}
+// makes a random cover, with no arguments
+// function createRandomCover() {
+//   var randomSrc = getRandomMember(covers)
+//   var randomTitle = getRandomMember(titles)
+//   var randomDescriptor1 = getRandomMember(descriptors)
+//   var randomDescriptor2 = getRandomMember(descriptors)
+//   var randomCover = createCover(randomSrc, randomTitle, randomDescriptor1, randomDescriptor2)
+//   return randomCover
+// }
 
 
 function updateMainCover(imgSrc, title, descriptor1, descriptor2) {
-  var newCoverPhoto = document.querySelector('.cover-image');
   newCoverPhoto.src = imgSrc;
-  var newCoverTitle = document.querySelector('.cover-title')
   newCoverTitle.innerText = title
-  var newDescriptor1 = document.querySelector('.tagline-1')
   newDescriptor1.innerText = descriptor1
-  var newDescriptor2 = document.querySelector('.tagline-2')
   newDescriptor2.innerText = descriptor2
-
 }
 
 function showRandomCover() {
-var randomCover = createRandomCover()
-updateMainCover(randomCover.coverImg, randomCover.title, randomCover.tagline1, randomCover.tagline2)
-console.log(randomCover)
-  
+  var randomCover = createCover()
+  updateMainCover(randomCover.coverImg, randomCover.title, randomCover.tagline1, randomCover.tagline2)
 }
-
-showRandomCover()
-
 
 function changeToFormView() {
   homeView.classList.add('hidden')
@@ -105,6 +113,31 @@ function changedToHomeView() {
 }
 
 
+//New
+function userBookInputs(event) {
+
+  // Create a new cover from 4 input fields
+  var imgSource = coverInput.value;
+  var imgTitle = titleInput.value;
+  var imgDescriptor1 = descOneInput.value;
+  var imgDescriptor2 = descTwoInput.value;
+
+  var userCover = createCover(imgSource, imgTitle, imgDescriptor1, imgDescriptor2);
+  // put that cover into the saved covers array (UP TOP)
+  savedCovers.push(userCover);
+  // put the 4 values into the 3 data arrays (covers, titles, descriptors)
+  covers.push(imgSource);
+  titles.push(imgTitle);
+  descriptors.push(imgDescriptor1, imgDescriptor2);
+  // update the main home view cover to match the new user created cover
+  updateMainCover(imgSource, imgTitle, imgDescriptor1, imgDescriptor2);
+  // switch back to the home view
+  changedToHomeView();
+
+  event.preventDefault();
+}
+
+
 /*-------------------------------------EVENT LISTENERS----------------------------------*/
 
 randomCoverBtn.addEventListener('click', showRandomCover)
@@ -115,8 +148,13 @@ viewSavedBtn.addEventListener('click', changedSavedView)
 
 homeBtn.addEventListener('click', changedToHomeView)
 
+createBookBtn.addEventListener('click', userBookInputs)//New make book 
 
+// titleInput.addEventListener('input', userBookInputs)//New
 
+/*-------------------------------------ON PAGE LOAD----------------------------------*/
+showRandomCover()
+console.log('PAGE RELOADED.')
 
 // Create variables targetting the relevant DOM elements here 👇
 
