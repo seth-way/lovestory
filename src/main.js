@@ -1,17 +1,11 @@
 
 
-var savedCovers = [
-  createCover("http://3.bp.blogspot.com/-iE4p9grvfpQ/VSfZT0vH2UI/AAAAAAAANq8/wwQZssi-V5g/s1600/Do%2BNot%2BForsake%2BMe%2B-%2BImage.jpg", "Sunsets and Sorrows", "sunsets", "sorrows"),
-  createCover("http://3.bp.blogspot.com/-iE4p9grvfpQ/VSfZT0vH2UI/AAAAAAAANq8/wwQZssi-V5g/s1600/Do%2BNot%2BForsake%2BMe%2B-%2BImage.jpg", "Sunsets and Sorrows", "sunsets", "sorrows"),
-  createCover("http://3.bp.blogspot.com/-iE4p9grvfpQ/VSfZT0vH2UI/AAAAAAAANq8/wwQZssi-V5g/s1600/Do%2BNot%2BForsake%2BMe%2B-%2BImage.jpg", "Sunsets and Sorrows", "sunsets", "sorrows"),
-  createCover("http://3.bp.blogspot.com/-iE4p9grvfpQ/VSfZT0vH2UI/AAAAAAAANq8/wwQZssi-V5g/s1600/Do%2BNot%2BForsake%2BMe%2B-%2BImage.jpg", "Sunsets and Sorrows", "sunsets", "sorrows"),
-  createCover("http://3.bp.blogspot.com/-iE4p9grvfpQ/VSfZT0vH2UI/AAAAAAAANq8/wwQZssi-V5g/s1600/Do%2BNot%2BForsake%2BMe%2B-%2BImage.jpg", "Sunsets and Sorrows", "sunsets", "sorrows"),
-  createCover("http://3.bp.blogspot.com/-iE4p9grvfpQ/VSfZT0vH2UI/AAAAAAAANq8/wwQZssi-V5g/s1600/Do%2BNot%2BForsake%2BMe%2B-%2BImage.jpg", "Sunsets and Sorrows", "sunsets", "sorrows")
-];
+var savedCovers = [];
 var currentCover;
 
 /*-------------------------------------DOM VARIABLES----------------------------------*/
 // ----------- VIEWS --------------
+// TODO: 
 var homeView = document.querySelector('.home-view')
 var savedView = document.querySelector('.saved-view')
 var formView = document.querySelector('.form-view')
@@ -40,6 +34,7 @@ var newDescriptor1 = document.querySelector('.tagline-1')
 var newDescriptor2 = document.querySelector('.tagline-2')
 // -------------- OTHER -----------
 var savedCoversSection = document.querySelector('.saved-covers-section')
+var miniCovers = document.querySelectorAll('.mini-cover')
 
 // var body = document.querySelector('body');
 /*-------------------------------------FUNCTIONS----------------------------------*/
@@ -61,6 +56,7 @@ function createCover(imgSrc, title, descriptor1, descriptor2) {
     tagline1: descriptor1,
     tagline2: descriptor2
   }
+  console.log('COVER WAS MADE:', cover.id);
   return cover
 }
 
@@ -79,19 +75,30 @@ function getRandomMember(array2) {
 //   return randomCover
 // }
 
-
-function updateMainCover(imgSrc, title, descriptor1, descriptor2) {
-  newCoverPhoto.src = imgSrc;
-  newCoverTitle.innerText = title
-  newDescriptor1.innerText = descriptor1
-  newDescriptor2.innerText = descriptor2
+// TODO: use 1 cover object instead 4 to parameters 
+function updateMainCover(cover) {
+  newCoverPhoto.src = cover.coverImg
+  newCoverTitle.innerText = cover.title
+  newDescriptor1.innerText = cover.tagline1
+  newDescriptor2.innerText = cover.tagline2
+  // update the currentCover to hold the input (param) cover
+  currentCover = cover;
+  // var currentCoverBook = {
+  //   coverImg: newCoverPhoto.src,
+  //   title: newCoverTitle.innerText,
+  //   tagline1: newDescriptor1.innerText,
+  //   tagline2: newDescriptor2.innerText
+  // }
+  // return currentCoverBook
 }
 
 function showRandomCover() {
   var randomCover = createCover()
-  updateMainCover(randomCover.coverImg, randomCover.title, randomCover.tagline1, randomCover.tagline2)
+  updateMainCover(randomCover)
 }
 
+// function updateView(DOMelement, ex. homeView) --> loop through the 3 views
+// unhide the input, hide the other 2 
 function changeToFormView() {
   homeView.classList.add('hidden')
   savedView.classList.add('hidden')
@@ -137,7 +144,7 @@ function userBookInputs(event) {
   titles.push(imgTitle);
   descriptors.push(imgDescriptor1, imgDescriptor2);
   // update the main home view cover to match the new user created cover
-  updateMainCover(imgSource, imgTitle, imgDescriptor1, imgDescriptor2);
+  updateMainCover(userCover);
   // switch back to the home view
   changedToHomeView();
 
@@ -145,17 +152,29 @@ function userBookInputs(event) {
 }
 
 function makeMiniCoverElement(cover) {
- var coverImg = cover.coverImg;
- var title = cover.title;
+  var coverImg = cover.coverImg;
+  var title = cover.title;
   var tagline1 = cover.tagline1;
-  var tagline2 =  cover.tagline2;
+  var tagline2 = cover.tagline2;
   // create a var for an empty string...
   // and add the below code to it in chunks
   var miniCoverHTML = '';
   // create the html for the mini cover element
-  
+
+  // to create the element -> document.createElement('div')
+  // element.classList.add('minicover');
+  // element.id = ???
+  // NOT SURE IF THIS NEXT PART IS ALLOWED, BUT....
+  // document.createElement('img') ... update class and src
+  // create element h2, update class & innerText
+  // create element h3, add class tagline
+  // update h3 inner Text
+  // create img, update class to overlay and src to "./assets/overlay.png"
+  // append to main minicover element -> coverImg, h2, h3, & overlay using (parent.appendChild(child))
+  // return minicover
+
   // <div class='mini-cover'>
-  miniCoverHTML += '<div class="mini-cover">';
+  miniCoverHTML += `<div class="mini-cover" id=${cover.id}>`;
   //   <img class='cover-image' src=`${}`> ??? Not so sure about cover-image
   miniCoverHTML += `<img class="cover-image" src=${coverImg}>`
   //   <h2 class='cover-title'`{title}`</h2>
@@ -175,19 +194,52 @@ function appendSavedCoversToDOM() {
   savedCoversSection.innerHTML = '';
 
   // loop over all saved covers 
-  for(var i = 0; i < savedCovers.length; i++) {
+  for (var i = 0; i < savedCovers.length; i++) {
     // ex. [cover0, cover1, cover2, cover3, cover4] 
 
     // grab cover at each idx and store it in variable
     var currentCover = savedCovers[i];
     // transform mini cover into HTML (using function above)
     var currentCoverAsHTML = makeMiniCoverElement(currentCover);
-    // append this HTML string to the savedCoversSection's inner html
     savedCoversSection.innerHTML += currentCoverAsHTML;
   }
+  // query select alllllll mini-books.. and see if we can do that?
+  miniCovers = document.querySelectorAll('.mini-cover');
+  // for loop over minicovers
+  for (var i = 0; i < miniCovers.length; i++) {
+    miniCovers[i].addEventListener('dblclick', removeSavedBook)
+  }
+  // at each cover, add event listerner to cover for double click.
+  // miniCovers[i].addEventListener
+}
+
+function removeSavedBook(event) {
+  var targetID = event.currentTarget.id
+  // loop over savedCovers array
+  console.log('this worked, id is ...', targetID);
+  for (var i = 0; i < savedCovers.length; i++) {
+    if (targetID === savedCovers[i].id.toString()) {
+      savedCovers.splice(i, 1)
+    }
+  }
+  // at each idx (cover) check if cover's id matches targetID
+  // if it does.... remove it
+  appendSavedCoversToDOM()
+  // when the loop is complete..... append savedcovers to DOM again.
+  event.preventDefault();
 }
 
 // TODO: make function to add main cover to saved covers array
+function saveUserCovers() {
+  // var currentBookCovers = currentCover
+
+  if (!savedCovers.includes(currentCover)) {
+    savedCovers.push(currentCover)
+    appendSavedCoversToDOM()
+  }
+
+}
+
 // remember to check array first for match, if doesnt exist.... then add it
 
 
@@ -204,10 +256,11 @@ homeBtn.addEventListener('click', changedToHomeView)
 createBookBtn.addEventListener('click', userBookInputs)//New make book 
 
 // TODO: add event listener for save cover button.
+saveCoverBtn.addEventListener('click', saveUserCovers)
 
 /*-------------------------------------ON PAGE LOAD----------------------------------*/
 showRandomCover()
-appendSavedCoversToDOM()
+// appendSavedCoversToDOM()
 console.log('PAGE RELOADED.')
 
 // Create variables targetting the relevant DOM elements here 👇
