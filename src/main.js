@@ -4,36 +4,41 @@ var savedCovers = [];
 var currentCover;
 
 /*-------------------------------------DOM VARIABLES----------------------------------*/
-// ----------- VIEWS --------------
+// ----------- VIEWS --------------/
 var homeView = document.querySelector('.home-view')
 var savedView = document.querySelector('.saved-view')
 var formView = document.querySelector('.form-view')
-// ----------- BUTTONS -------------
+// ----------- BUTTONS -------------/
 var randomCoverBtn = document.querySelector('.random-cover-button');
 var saveCoverBtn = document.querySelector('.save-cover-button')
 var makeOwnCoverBtn = document.querySelector('.make-new-button')
 var homeBtn = document.querySelector('.home-button')
 var viewSavedBtn = document.querySelector('.view-saved-button')
 var createBookBtn = document.querySelector('.create-new-book-button')
-// -------------- INPUT -----------
+// -------------- INPUT -----------/
 var coverInput = document.querySelector('.user-cover')
 var titleInput = document.querySelector('.user-title')
 var descOneInput = document.querySelector('.user-desc1')
 var descTwoInput = document.querySelector('.user-desc2')
-// -------------- MAIN PHOTO -----------
+// -------------- MAIN PHOTO -----------/
 var mainCoverPhoto = document.querySelector('.cover-image')
 var mainCoverTitle = document.querySelector('.cover-title')
 var mainDescriptor1 = document.querySelector('.tagline-1')
 var mainDescriptor2 = document.querySelector('.tagline-2')
-// -------------- OTHER -----------
+// -------------- SAVED COVERS -----------/
 var savedCoversSection = document.querySelector('.saved-covers-section')
 var miniCovers = document.querySelectorAll('.mini-cover')
 /*-------------------------------------FUNCTIONS----------------------------------*/
-
+// -------------- JS Logic Functions -----------/
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
 }
-// takes 4 arguments, makes a cover
+
+function getRandomMember(array2) {
+  var index = getRandomIndex(array2)
+  return array2[index]
+}
+
 function createCover(imgSrc, title, descriptor1, descriptor2) {
   if (!imgSrc) { imgSrc = getRandomMember(covers); }
   if (!title) { title = getRandomMember(titles); }
@@ -50,33 +55,49 @@ function createCover(imgSrc, title, descriptor1, descriptor2) {
   return cover
 }
 
-function getRandomMember(array2) {
-  var index = getRandomIndex(array2)
-  return array2[index]
+function removeSavedBook(event) {
+  var targetID = event.currentTarget.id
+  for (var i = 0; i < savedCovers.length; i++) {
+    if (targetID === savedCovers[i].id.toString()) {
+      savedCovers.splice(i, 1)
+    }
+  }
+  appendSavedCoversToDOM()
+
+  event.preventDefault();
 }
 
-function updateMainCover(cover) {
-  mainCoverPhoto.src = cover.coverImg
-  mainCoverTitle.innerText = cover.title
-  mainDescriptor1.innerText = cover.tagline1
-  mainDescriptor2.innerText = cover.tagline2
-  // update the currentCover to hold the input (param) cover
-  currentCover = cover;
+function saveUserCovers() {
+  if (!savedCovers.includes(currentCover)) {
+    savedCovers.push(currentCover)
+    appendSavedCoversToDOM()
+  }
 }
 
-function showRandomCover() {
-  var randomCover = createCover()
-  updateMainCover(randomCover)
-}
+function makeCoverFromInputs(event) {
+  var inputSource = coverInput.value;
+  var inputTitle = titleInput.value;
+  var inputDescriptor1 = descOneInput.value;
+  var inputDescriptor2 = descTwoInput.value;
 
-// unhide the input, hide the other 2 views
+  var userCover = createCover(inputSource, inputTitle, inputDescriptor1, inputDescriptor2);
+  savedCovers.push(userCover);
+  appendSavedCoversToDOM();
+  covers.push(inputSource);
+  titles.push(inputTitle);
+  descriptors.push(inputDescriptor1, inputDescriptor2);
+  updateMainCover(userCover);
+  changeToHomeView();
+
+  event.preventDefault();
+}
+// -------------- Change View Functions -----------/
 function makeViewVisible(view) {
   var views = [homeView, savedView, formView];
-  // before loop.... remove the hidden class fron input view
   view.classList.remove('hidden')
+
   for(var i = 0; i < views.length; i++) {
     var currentView = views[i]
-    // if the view !== currentView
     if(view !== currentView) {
       currentView.classList.add('hidden')
     }
@@ -103,28 +124,19 @@ function changeToHomeView() {
   saveCoverBtn.classList.remove('hidden')
   randomCoverBtn.classList.remove('hidden')
 }
+// -------------- Edit HTML Functions -----------/
+function updateMainCover(cover) {
+  mainCoverPhoto.src = cover.coverImg
+  mainCoverTitle.innerText = cover.title
+  mainDescriptor1.innerText = cover.tagline1
+  mainDescriptor2.innerText = cover.tagline2
+  
+  currentCover = cover;
+}
 
-function makeCoverFromInputs(event) {
-  // Create a new cover from 4 input fields
-  var inputSource = coverInput.value;
-  var inputTitle = titleInput.value;
-  var inputDescriptor1 = descOneInput.value;
-  var inputDescriptor2 = descTwoInput.value;
-
-  var userCover = createCover(inputSource, inputTitle, inputDescriptor1, inputDescriptor2);
-  // put that cover into the saved covers array (UP TOP)
-  savedCovers.push(userCover);
-  appendSavedCoversToDOM();
-  // put the 4 values into the 3 data arrays (covers, titles, descriptors)
-  covers.push(inputSource);
-  titles.push(inputTitle);
-  descriptors.push(inputDescriptor1, inputDescriptor2);
-  // update the main home view cover to match the new user created cover
-  updateMainCover(userCover);
-  // switch back to the home view
-  changedToHomeView();
-
-  event.preventDefault();
+function showRandomCover() {
+  var randomCover = createCover()
+  updateMainCover(randomCover)
 }
 
 function makeMiniCoverElement(cover) {
@@ -154,44 +166,15 @@ function makeMiniCoverElement(cover) {
 }
 
 function appendSavedCoversToDOM() {
-  // clear innerHTML of the .saved-covers-section
   savedCoversSection.innerHTML = '';
 
-  // loop over all saved covers 
   for (var i = 0; i < savedCovers.length; i++) {
-    // grab cover at each idx and store it in variable
     var currentCover = savedCovers[i];
-    // transform mini cover into DOM node (using function above)
     var currentCoverAsDOMNode = makeMiniCoverElement(currentCover);
-    // Add evemt listener to new node
     currentCoverAsDOMNode.addEventListener('dblclick', removeSavedBook)
     savedCoversSection.appendChild(currentCoverAsDOMNode);
   }
 }
-
-function removeSavedBook(event) {
-  var targetID = event.currentTarget.id
-  // loop over savedCovers array
-  for (var i = 0; i < savedCovers.length; i++) {
-    // at each idx (cover) check if cover's id matches targetID
-    if (targetID === savedCovers[i].id.toString()) {
-       // if it does.... remove it
-      savedCovers.splice(i, 1)
-    }
-  }
-  // when the loop is complete..... append savedcovers to DOM again.
-  appendSavedCoversToDOM()
-
-  event.preventDefault();
-}
-
-function saveUserCovers() {
-  if (!savedCovers.includes(currentCover)) {
-    savedCovers.push(currentCover)
-    appendSavedCoversToDOM()
-  }
-}
-
 /*-------------------------------------EVENT LISTENERS----------------------------------*/
 randomCoverBtn.addEventListener('click', showRandomCover)
 makeOwnCoverBtn.addEventListener('click', changeToFormView)
