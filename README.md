@@ -1,4 +1,4 @@
-<h1 style="text-align: center;">💌📘 - LoveStory - 💌📘</h1>
+# 💌📘 - [LoveStory](https://seth-way.github.io/lovestory/) - 💌📘
 
 ### Set Up 🔧:
 1. ONE teammate: fork this boilerplate repository 
@@ -33,7 +33,7 @@ People say that romance novels are formulaic. Well ... maybe that's true. This a
 
 ### Vist this page
 
-[Love Story](https://ztfitru.github.io/lovestory/)
+[Love Story](https://seth-way.github.io/lovestory/)
 
 ### Context ❓:
 - This is a pair-programming project completed by 2 Turing student's in our 2nd week of the 7 month program. We have focused mainly on JS fundamentals to this point. This project represents our first real exposure to HTML & CSS. We took roughly 10 hours to update the JS to provide the user with a seemless & intuitive experience.
