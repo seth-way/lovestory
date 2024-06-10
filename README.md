@@ -20,21 +20,16 @@ People say that romance novels are formulaic. Well ... maybe that's true. This a
 ---
 
 ### Installation Instructions ✅:
-1. Select the `fork` button top right corner.
-2. Decide where you want to clone this repo in `YOUR` terminal.
-3. Select the `Code` button.
-4. Select and copy the `SSH` provided.
-5. `YOUR` terminal command should look like the line below.
-6. `git clone git@github.com:ZTFitru/lovestory.git`
-7. Move into the directory using `cd [dir_name]`.
-8. If using `Visual Studio Code` use the `code .` command in your terminal to run it.
-9. View the project in the browser by running open index.html in your terminal.
+- Fork this project to your own Github account.
+- Clone the repository to your local machine.
+- `cd` into the project directory.
+- Use the `open index.html` command to view the webpage.
 
 ---
 
 ### Preview of App 📺:
 
-![Imgur](https://imgur.com/OlDQyDA.gif)
+![App Demo](demo.gif)
 
 ### Vist this page
 
@@ -68,31 +63,17 @@ People say that romance novels are formulaic. Well ... maybe that's true. This a
 ---
 
 ![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
-<br />
 ![Github Pages](https://img.shields.io/badge/github%20pages-121013?style=for-the-badge&logo=github&logoColor=white)
-<br />
 ![Google Chrome](https://img.shields.io/badge/Google%20Chrome-4285F4?style=for-the-badge&logo=GoogleChrome&logoColor=white)
-<br />
 ![Google Drive](https://img.shields.io/badge/Google%20Drive-4285F4?style=for-the-badge&logo=googledrive&logoColor=white)
-<br />
 ![CodePen](https://img.shields.io/badge/Codepen-000000?style=for-the-badge&logo=codepen&logoColor=white)
-<br />
 ![Stack Overflow](https://img.shields.io/badge/-Stackoverflow-FE7A16?style=for-the-badge&logo=stack-overflow&logoColor=white)
-<br />
 ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
-<br />
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
-<br />
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
-<br />
 ![Markdown](https://img.shields.io/badge/markdown-%23000000.svg?style=for-the-badge&logo=markdown&logoColor=white)
-<br />
 ![Google](https://img.shields.io/badge/google-4285F4?style=for-the-badge&logo=google&logoColor=white)
-<br />
 ![Slack](https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white)
-<br />
 ![Zoom](https://img.shields.io/badge/Zoom-2D8CFF?style=for-the-badge&logo=zoom&logoColor=white)
-<br />
 ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
-<br />
 ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
